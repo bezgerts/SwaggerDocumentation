@@ -1,8 +1,12 @@
 package me.bezgerts.SwaggerDocumentation.service.swagger;
 
-import java.util.List;
+import v2.io.swagger.models.Model;
+import v2.io.swagger.models.Path;
+
+import java.util.Map;
 
 
 public interface SwaggerService {
-    List<String> getPaths();
+    Map<String, Path> getPaths();
+    Map<String, Model> getDefinitions();
 }

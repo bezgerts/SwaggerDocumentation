@@ -1,15 +1,13 @@
 package me.bezgerts.SwaggerDocumentation.service.swagger;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import v2.io.swagger.models.Model;
+import v2.io.swagger.models.Path;
 import v2.io.swagger.models.Swagger;
 import v2.io.swagger.parser.SwaggerParser;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.codehaus.groovy.tools.shell.util.Logger.io;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -20,7 +18,11 @@ public class SwaggerServiceImpl implements SwaggerService {
         return swagger;
     }
 
-    public List<String> getPaths() {
-        return new ArrayList<>(getSwagger().getPaths().keySet());
+    public Map<String, Path> getPaths() {
+        return getSwagger().getPaths();
+    }
+
+    public Map<String, Model> getDefinitions() {
+        return getSwagger().getDefinitions();
     }
 }
