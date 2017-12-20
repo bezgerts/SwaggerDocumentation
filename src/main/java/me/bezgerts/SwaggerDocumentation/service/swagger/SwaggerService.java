@@ -9,4 +9,6 @@ import java.util.Map;
 public interface SwaggerService {
     Map<String, Path> getPaths();
     Map<String, Model> getDefinitions();
+    void saveRemoteSwaggerToDatabase();
+    boolean checkSwaggerActuality();
 }

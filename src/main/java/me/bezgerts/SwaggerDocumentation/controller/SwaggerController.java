@@ -17,6 +17,7 @@ public class SwaggerController {
 
     @RequestMapping(path = "/paths")
     public Map<String, Path> getPaths() {
+        swaggerService.saveRemoteSwaggerToDatabase();
         return swaggerService.getPaths();
     }
 
