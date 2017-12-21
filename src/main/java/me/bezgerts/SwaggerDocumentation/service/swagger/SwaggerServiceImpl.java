@@ -35,11 +35,20 @@ public class SwaggerServiceImpl extends GenericServiceImpl<SwaggerModel, Long> i
         this.swaggerModelDAO = (SwaggerModelDAO) genericDAO;
     }
 
+    public Swagger getSwagger() {
+        String swaggerAsString = swaggerModelDAO.getLatestSwaggerModelByTimestamp().getSwaggerJson();
+        Swagger swagger = new SwaggerParser().parse(swaggerAsString);
+        return swagger;
+    }
+
     public boolean checkSwaggerActuality() {
-        // TODO: 20.12.17 реализовать метод 
         String swaggerRemoteJson = getSwaggerJsonFromRemote();
-        String swaggerStoredJson = null;
-        return false;
+        String swaggerStoredJson = swaggerModelDAO.getLatestSwaggerModelByTimestamp().getSwaggerJson();
+        if (swaggerRemoteJson.equals(swaggerStoredJson)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Map<String, Path> getPaths() {
@@ -51,16 +60,10 @@ public class SwaggerServiceImpl extends GenericServiceImpl<SwaggerModel, Long> i
     }
 
     @Override
-    public void saveRemoteSwaggerToDatabase() {
+    public void saveSwagger() {
         String swaggerJson = getSwaggerJsonFromRemote();
         SwaggerModel swaggerModel = new SwaggerModel(swaggerJson, new Date());
         swaggerModelDAO.add(swaggerModel);
-    }
-
-    private Swagger getSwagger() {
-        String swaggerAsString = getSwaggerJsonFromRemote();
-        Swagger swagger = new SwaggerParser().parse(swaggerAsString);
-        return swagger;
     }
 
     private String getSwaggerJsonFromRemote(){
@@ -76,9 +79,5 @@ public class SwaggerServiceImpl extends GenericServiceImpl<SwaggerModel, Long> i
                 break;
         }
         return swaggerJson;
-    }
-
-    private String getLatestSwaggerJson() {
-        return null;
     }
 }
