@@ -1,7 +1,5 @@
 package me.bezgerts.SwaggerDocumentation.domain;
 
-import v2.io.swagger.models.Swagger;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,18 +10,19 @@ public class SwaggerModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "DATE")
-    private Date date;
+    @Column(name = "timestamp")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestamp;
 
     @Lob
-    @Column(name = "SWAGGER")
+    @Column(name = "swagger")
     private String swaggerJson;
 
     public SwaggerModel() {
     }
 
-    public SwaggerModel(String swaggerJson, Date date) {
-        this.date = date;
+    public SwaggerModel(String swaggerJson, Date timestamp) {
+        this.timestamp = timestamp;
         this.swaggerJson = swaggerJson;
     }
 
@@ -43,19 +42,19 @@ public class SwaggerModel {
         this.swaggerJson = swaggerJson;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getTimestamp() {
+        return timestamp;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
     public String toString() {
         return "SwaggerModel{" +
                 "id=" + id +
-                ", date=" + date +
+                ", timestamp=" + timestamp +
                 ", swaggerJson='" + swaggerJson + '\'' +
                 '}';
     }

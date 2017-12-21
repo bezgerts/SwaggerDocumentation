@@ -35,27 +35,6 @@ public class SwaggerServiceImpl extends GenericServiceImpl<SwaggerModel, Long> i
         this.swaggerModelDAO = (SwaggerModelDAO) genericDAO;
     }
 
-    private Swagger getSwagger() {
-        String swaggerAsString = getSwaggerJsonFromRemote();
-        Swagger swagger = new SwaggerParser().parse(swaggerAsString);
-        return swagger;
-    }
-    
-    private String getSwaggerJsonFromRemote(){
-        SwaggerSource swaggerSource = SwaggerSource.valueOf(env.getProperty("swagger.source"));
-        String swaggerJson = null;
-        switch (swaggerSource) {
-            case FILE:
-                swaggerJson = FileUtils.readFromFile(env.getProperty("swagger.source.file.name"));
-                break;
-
-            case HTTP:
-                swaggerJson = HttpUtils.sendGetRequest(env.getProperty("swagger.source.http.url"));
-                break;
-        }
-        return swaggerJson;
-    }
-
     public boolean checkSwaggerActuality() {
         // TODO: 20.12.17 реализовать метод 
         String swaggerRemoteJson = getSwaggerJsonFromRemote();
@@ -76,5 +55,30 @@ public class SwaggerServiceImpl extends GenericServiceImpl<SwaggerModel, Long> i
         String swaggerJson = getSwaggerJsonFromRemote();
         SwaggerModel swaggerModel = new SwaggerModel(swaggerJson, new Date());
         swaggerModelDAO.add(swaggerModel);
+    }
+
+    private Swagger getSwagger() {
+        String swaggerAsString = getSwaggerJsonFromRemote();
+        Swagger swagger = new SwaggerParser().parse(swaggerAsString);
+        return swagger;
+    }
+
+    private String getSwaggerJsonFromRemote(){
+        SwaggerSource swaggerSource = SwaggerSource.valueOf(env.getProperty("swagger.source"));
+        String swaggerJson = null;
+        switch (swaggerSource) {
+            case FILE:
+                swaggerJson = FileUtils.readFromFile(env.getProperty("swagger.source.file.name"));
+                break;
+
+            case HTTP:
+                swaggerJson = HttpUtils.sendGetRequest(env.getProperty("swagger.source.http.url"));
+                break;
+        }
+        return swaggerJson;
+    }
+
+    private String getLatestSwaggerJson() {
+        return null;
     }
 }
