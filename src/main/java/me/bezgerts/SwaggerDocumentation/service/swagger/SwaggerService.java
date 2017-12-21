@@ -1,6 +1,5 @@
 package me.bezgerts.SwaggerDocumentation.service.swagger;
 
-import me.bezgerts.SwaggerDocumentation.domain.SwaggerModel;
 import v2.io.swagger.models.Model;
 import v2.io.swagger.models.Path;
 import v2.io.swagger.models.Swagger;

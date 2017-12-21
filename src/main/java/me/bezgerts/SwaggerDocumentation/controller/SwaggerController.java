@@ -1,6 +1,5 @@
 package me.bezgerts.SwaggerDocumentation.controller;
 
-import me.bezgerts.SwaggerDocumentation.domain.SwaggerModel;
 import me.bezgerts.SwaggerDocumentation.service.swagger.SwaggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,8 +8,6 @@ import v2.io.swagger.models.Model;
 import v2.io.swagger.models.Path;
 import v2.io.swagger.models.Swagger;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Map;
 
 @RestController
