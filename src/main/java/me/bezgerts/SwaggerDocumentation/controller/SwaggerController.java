@@ -1,29 +1,31 @@
 package me.bezgerts.SwaggerDocumentation.controller;
 
-import me.bezgerts.SwaggerDocumentation.service.swagger.SwaggerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import me.bezgerts.SwaggerDocumentation.service.SwaggerService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import v2.io.swagger.models.Model;
 import v2.io.swagger.models.Path;
 
 import java.util.Map;
 
+@RequiredArgsConstructor
 @RestController
 public class SwaggerController {
 
-    @Autowired
+    @NonNull
     private SwaggerService swaggerService;
 
-    @RequestMapping(path = "/paths")
+    @GetMapping(path = "/definitions")
+    public Map<String, Model> getDefinitions() {
+        return swaggerService.getDefinitions();
+    }
+
+    @GetMapping(path = "/paths")
     public Map<String, Path> getPaths() {
         swaggerService.saveRemoteSwaggerToDatabase();
         return swaggerService.getPaths();
-    }
-
-    @RequestMapping(path = "/definitions")
-    public Map<String, Model> getDefinitions() {
-        return swaggerService.getDefinitions();
     }
 
 }

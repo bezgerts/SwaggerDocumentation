@@ -1,0 +1,15 @@
+server:
+  port: 8097
+
+swagger:
+  source: FILE
+  file:
+    name: swagger.json
+  http:
+    url: http://10.178.3.66:9001/swagger/docs/v1
+
+spring:
+  profiles:
+    active:
+      - dev
+      - h2

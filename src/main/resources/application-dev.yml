@@ -1,0 +1,4 @@
+endpoints:
+  sensitive: false
+  hypermedia:
+    enabled: true
